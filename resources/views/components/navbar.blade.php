@@ -1,33 +1,20 @@
-<link href="{{ URL::asset('css/navbar.css') }} " rel="stylesheet">
-
-<nav class="navbar">
-
-    <div class="logo">CinePlace Pobre</div>
-
-    <ul class="nav-links">
-
-        <div class="menu">
-
-            <li><a href="/">Filmes</a></li>
-
-            {{-- <li class="services">
-                <a href="/">Bilhetes</a>
-
-                <ul class="dropdown">
-                    <li><a href="/">Dropdown 1 </a></li>
-                    <li><a href="/">Dropdown 2</a></li>
-                    <li><a href="/">Dropdown 2</a></li>
-                    <li><a href="/">Dropdown 3</a></li>
-                    <li><a href="/">Dropdown 4</a></li>
-                </ul>
-
-
-            </li> --}}
-
-            <li><a href="/">Bilhetes</a></li>
-            <li><a href="/">Contactos</a></li>
-        </div>
-
-    </ul>
-
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Cineplace Poor</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Filmes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Bilhetes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Carrinho</a>
+            </li>
+        </ul>
+    </div>
 </nav>

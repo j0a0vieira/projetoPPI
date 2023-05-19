@@ -8,12 +8,13 @@ use Illuminate\View\Component;
 
 class filmeTile extends Component
 {
+    public $filme;
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public function __construct($filme)
     {
-        //
+        $this->filme = $filme;
     }
 
     /**
