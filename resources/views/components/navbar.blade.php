@@ -17,4 +17,12 @@
             </li>
         </ul>
     </div>
+    <div class="float-left">
+
+
+        @if (Auth::check())
+            <a href="{{ url('logout') }}" class="btn btn-info" role="button">Logout</a>
+        @else<a href="{{ url('/login') }}" class="btn btn-info" role="button">Login</a>
+        @endif
+    </div>
 </nav>

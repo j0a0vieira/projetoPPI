@@ -1,5 +1,11 @@
 <div class="card m-2" style="width: 19rem;">
-    <img class="card-img-top" src="/images/movie1.jpeg" alt="Card image cap">
+
+    @if ($filme->cartaz_url)
+        <img class="card-img-top" src="{{ url('storage/cartazes/' . $filme->cartaz_url) }}" alt="" />
+    @else
+        <img class="card-img-top" src="{{ url('storage/cartazes/no-image.jpg') }}" alt="" />
+    @endif
+
     <div class="card-body d-flex flex-column">
         <h5 class="card-title">{{ $filme->titulo }}</h5>
         <p class="card-text">{{ $filme->sumario }}</p>

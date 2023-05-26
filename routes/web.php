@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\filmeController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,4 +16,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [filmeController::class, 'index']);
+Auth::routes();
+
+Route::get('/', [App\Http\Controllers\FilmeController::class, 'index'])->name('home');
+Route::get('logout', function () {
+    auth()->logout();
+    Session()->flush();
+
+    return Redirect::to('/');
+})->name('logout');

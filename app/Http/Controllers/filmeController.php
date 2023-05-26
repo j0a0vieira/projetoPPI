@@ -3,12 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\filmes;
-use Illuminate\Http\Request;
-use Illuminate\View\View;
 
-class filmeController extends Controller
+class FilmeController extends Controller
 {
-    public function index(): View
+
+    public function index()
     {
         $allFilmes = filmes::all();
 
