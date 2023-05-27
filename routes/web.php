@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Auth::routes();
-
+Auth::routes(['verify' => true]);
 Route::get('/', [App\Http\Controllers\FilmeController::class, 'index'])->name('home');
 Route::get('logout', function () {
     auth()->logout();
