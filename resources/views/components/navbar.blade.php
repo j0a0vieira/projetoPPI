@@ -21,6 +21,7 @@
 
 
         @if (Auth::check())
+            <a href="{{ url('profile') }}" class="btn btn-info" role="button">Profile</a>
             <a href="{{ url('logout') }}" class="btn btn-info" role="button">Logout</a>
         @else<a href="{{ url('/login') }}" class="btn btn-info" role="button">Login</a>
         @endif

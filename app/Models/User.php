@@ -22,6 +22,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
+        'foto_url',
     ];
 
     /**
@@ -42,4 +43,9 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function cliente()
+    {
+        return $this->hasOne(Cliente::class, 'id', 'id');
+    }
 }

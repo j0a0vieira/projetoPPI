@@ -25,3 +25,8 @@ Route::get('logout', function () {
 
     return Redirect::to('/');
 })->name('logout');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get("/profile", [App\Http\Controllers\ProfileController::class, 'index']);
+    Route::post('profile/{user}', [App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
+});
