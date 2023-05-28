@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Ramsey\Uuid\Type\Integer;
 
 class ProfileController extends Controller
 {
@@ -20,6 +21,20 @@ class ProfileController extends Controller
         $users = User::where('tipo', 'C')->get();
 
         return view('users')->with('users', $users);
+    }
+
+    public function listAllAdmins()
+    {
+        $users = User::where('tipo', 'A')->get();
+
+        return view('users')->with('users', $users);
+    }
+
+    public function userProfile($id)
+    {
+        $user = User::find($id);
+
+        return view('profile')->with('user', $user);
     }
 
     public function update(User $user, Request $request)
@@ -51,6 +66,6 @@ class ProfileController extends Controller
             ]);
         }
 
-        return redirect()->route('profile');
+        return redirect()->route('home');
     }
 }

@@ -77,7 +77,6 @@
                                 <div class="col-md-4"></div>
                                 <div class="col-md-6">
                                     <select class="form-select" aria-label="Default select example" name="tipo">
-                                        <option selected>Selecione o tipo de conta</option>
                                         <option value="C">Cliente</option>
                                         <option value="F">Funcionário</option>
                                         <option value="A">Administrador</option>

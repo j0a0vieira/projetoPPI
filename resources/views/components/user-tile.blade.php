@@ -9,7 +9,8 @@
     <div class="card-body d-flex flex-column">
         <h5 class="card-title">{{ $user->name }}</h5>
         <div class="card-buttons mt-auto">
-            <a target="_blank" class="btn btn-primary">Ver perfil</a>
+            <a href="{{ route('user-profile', ['id' => $user->id]) }} target="_blank" class="btn btn-primary">Ver
+                perfil</a>
         </div>
     </div>
 </div>

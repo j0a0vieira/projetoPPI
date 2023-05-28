@@ -26,6 +26,10 @@ Route::get('/funcionarios', [App\Http\Controllers\FuncionariosController::class,
 
 Route::get('/users', [App\Http\Controllers\ProfileController::class, 'listAll'])->name('users');
 
+Route::get('/admins', [App\Http\Controllers\ProfileController::class, 'listAllAdmins'])->name('admins');
+
+Route::get('/user-profile/{id}', [App\Http\Controllers\ProfileController::class, 'userProfile'])->name("user-profile");
+
 Route::get('logout', function () {
     auth()->logout();
     Session()->flush();
