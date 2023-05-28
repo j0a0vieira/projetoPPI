@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Cliente;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Ramsey\Uuid\Type\Integer;
 
 class ProfileController extends Controller
 {
@@ -35,6 +35,44 @@ class ProfileController extends Controller
         $user = User::find($id);
 
         return view('profile')->with('user', $user);
+    }
+
+    public function deleteProfile($id)
+    {
+        $user = User::find($id);
+
+        if ($user->cliente) {
+            $cliente = $user->cliente;
+
+            // Delete associated bilhetes records
+            foreach (optional($cliente->bilhetes) ?? [] as $bilhete) {
+                $bilhete->delete();
+            }
+
+            // Delete cliente record
+            $cliente->delete();
+        }
+
+        $user->delete();
+
+        return redirect()->route('home');;
+    }
+
+    public function bloquearProfile($id)
+    {
+        $user = User::find($id);
+
+        if ($user->bloqueado) {
+            $user->update([
+                'bloqueado' => 0,
+            ]);
+        } else if (!$user->bloqueado) {
+            $user->update([
+                'bloqueado' => 1,
+            ]);
+        }
+
+        return redirect()->route('home');
     }
 
     public function update(User $user, Request $request)

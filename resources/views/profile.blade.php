@@ -54,7 +54,7 @@
                                             value="{{ $user->email }}" name="email"
                                             @if (optional(Auth()->user())->tipo == 'A' && $user->tipo == 'C') disabled @endif>
                                     </div>
-                                    @if ($user->tipo != 'A')
+                                    @if ($user->tipo == 'C')
                                         <div class="col-md-4">
                                             <label class="form-label">Tipo de pagamento</label>
                                             <select class="form-select" aria-label="Default select example"
@@ -72,7 +72,6 @@
                                             </select>
                                         </div>
                                     @endif
-
                                     @if ($user->email_verified_at == null)
                                         <div class="alert alert-warning alert-dismissible fade show" role="alert">
                                             <strong>Aviso!</strong> O seu email ainda não foi verificado! Verifique o

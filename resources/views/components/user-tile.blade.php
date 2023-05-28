@@ -9,8 +9,11 @@
     <div class="card-body d-flex flex-column">
         <h5 class="card-title">{{ $user->name }}</h5>
         <div class="card-buttons mt-auto">
-            <a href="{{ route('user-profile', ['id' => $user->id]) }} target="_blank" class="btn btn-primary">Ver
-                perfil</a>
+            <a href="{{ route('block-profile', ['id' => $user->id]) }} target="_blank" class="btn btn-danger">
+                {{ $user->bloqueado ? 'Desbloquear' : 'Bloquear' }}
+            </a>
+            <a href="{{ route('delete-profile', ['id' => $user->id]) }} target="_blank" class="btn btn-danger">Eliminar
+                Conta</a>
         </div>
     </div>
 </div>
