@@ -17,8 +17,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Auth::routes();
+
 Auth::routes(['verify' => true]);
+
 Route::get('/', [App\Http\Controllers\FilmeController::class, 'index'])->name('home');
+
 Route::get('logout', function () {
     auth()->logout();
     Session()->flush();
@@ -27,6 +30,6 @@ Route::get('logout', function () {
 })->name('logout');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get("/profile", [App\Http\Controllers\ProfileController::class, 'index']);
+    Route::get("/profile", [App\Http\Controllers\ProfileController::class, 'index'])->name('profile');
     Route::post('profile/{user}', [App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
 });

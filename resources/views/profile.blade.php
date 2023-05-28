@@ -36,20 +36,26 @@
                                     <div class="col-md-6">
                                         <label class="form-label">First Name *</label>
                                         <input type="text" class="form-control" placeholder=""
-                                            aria-label="First name" value={{ $user->name }} name="name">
+                                            aria-label="First name" value="{{ $user->name }}" name="name">
                                     </div>
                                     <!-- Nif -->
                                     <div class="col-md-6">
                                         <label class="form-label">NIF (opcional)</label>
                                         <input type="number" class="form-control" placeholder="" aria-label="NIF"
-                                            value={{ $user->cliente->nif }} name="nif">
+                                            value="{{ optional($user->cliente)->nif ?? '' }}" name="nif">
                                     </div>
                                     <!-- Phone number -->
                                     <div class="col-md-6">
                                         <label class="form-label">Email *</label>
                                         <input type="email" class="form-control" placeholder="" aria-label="Email"
-                                            value={{ $user->email }} name="email">
+                                            value="{{ $user->email }}" name="email">
                                     </div>
+                                    @if ($user->email_verified_at == null)
+                                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                            <strong>Aviso!</strong> O seu email ainda não foi verificado! Verifique o
+                                            seu email!
+                                        </div>
+                                    @endif
                                 </div> <!-- Row END -->
                             </div>
                         </div>

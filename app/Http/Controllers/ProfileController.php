@@ -17,10 +17,12 @@ class ProfileController extends Controller
 
     public function update(User $user, Request $request)
     {
+        $caminho = $user->foto_url;
 
-        $imagem = $request->hasFile('foto');
-        $newImagem = $request->file('foto');
-        $caminho = $newImagem->store('fotos');
+        if ($request->hasFile('foto')) {
+            $newImagem = $request->file('foto');
+            $caminho = $newImagem->store('fotos');
+        }
 
         $user->update([
             'name' => $request->name,
@@ -29,6 +31,17 @@ class ProfileController extends Controller
             'foto_url' => $caminho,
         ]);
 
-        return $this->index();
+        if ($user->cliente) {
+            $user->cliente->update([
+                'nif' => $request->nif,
+            ]);
+        } else {
+            $user->cliente()->create([
+                'id' => $user->id,
+                'nif' => $request->nif,
+            ]);
+        }
+
+        return redirect()->route('profile');
     }
 }
