@@ -15,6 +15,13 @@ class ProfileController extends Controller
         return view('profile', compact('user'));
     }
 
+    public function listAll()
+    {
+        $users = User::where('tipo', 'C')->get();
+
+        return view('users')->with('users', $users);
+    }
+
     public function update(User $user, Request $request)
     {
         $caminho = $user->foto_url;
@@ -34,11 +41,13 @@ class ProfileController extends Controller
         if ($user->cliente) {
             $user->cliente->update([
                 'nif' => $request->nif,
+                'tipo_pagamento' => $request->tipo_pagamento,
             ]);
         } else {
             $user->cliente()->create([
                 'id' => $user->id,
                 'nif' => $request->nif,
+                'tipo_pagamento' => $request->tipo_pagamento,
             ]);
         }
 

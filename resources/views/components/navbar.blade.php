@@ -18,10 +18,14 @@
         </ul>
     </div>
     <div class="float-left">
-
-
         @if (Auth::check())
-            <a href="{{ url('profile') }}" class="btn btn-info" role="button">Profile</a>
+            @if (Auth()->user()->tipo != 'F')
+                <a href="{{ url('profile') }}" class="btn btn-info" role="button">Profile</a>
+            @endif
+            @if (Auth()->user()->tipo == 'A')
+                <a href="{{ url('funcionarios') }}" class="btn btn-info" role="button">Funcionários</a>
+                <a href="{{ url('users') }}" class="btn btn-info" role="button">Clientes</a>
+            @endif
             <a href="{{ url('logout') }}" class="btn btn-info" role="button">Logout</a>
         @else<a href="{{ url('/login') }}" class="btn btn-info" role="button">Login</a>
         @endif

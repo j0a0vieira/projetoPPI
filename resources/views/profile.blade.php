@@ -18,7 +18,7 @@
             <div class="col-12">
                 <!-- Page title -->
                 <div class="my-5">
-                    <h3>My Profile</h3>
+                    <h3>Perfil</h3>
                     <hr>
                 </div>
                 <!-- Form START -->
@@ -31,10 +31,10 @@
                         <div class="col-xxl-8 mb-5 mb-xxl-0">
                             <div class="bg-secondary-soft px-4 py-5 rounded">
                                 <div class="row g-3">
-                                    <h4 class="mb-4 mt-0">Contact detail</h4>
+                                    <h4 class="mb-4 mt-0">Detalhes da conta</h4>
                                     <!-- First Name -->
                                     <div class="col-md-6">
-                                        <label class="form-label">First Name *</label>
+                                        <label class="form-label">Nome *</label>
                                         <input type="text" class="form-control" placeholder=""
                                             aria-label="First name" value="{{ $user->name }}" name="name">
                                     </div>
@@ -50,6 +50,18 @@
                                         <input type="email" class="form-control" placeholder="" aria-label="Email"
                                             value="{{ $user->email }}" name="email">
                                     </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Tipo de pagamento</label>
+                                        <select class="form-select" aria-label="Default select example"
+                                            name="tipo_pagamento" placeholder="oi">
+                                            <option selected>
+                                                {{ optional($user->cliente)->tipo_pagamento ?? 'Selecione o tipo de pagamento' }}
+                                            </option>
+                                            <option value="MBWAY">MBWAY</option>
+                                            <option value="VISA">VISA</option>
+                                            <option value="PAYPAL">PAYPAL</option>
+                                        </select>
+                                    </div>
                                     @if ($user->email_verified_at == null)
                                         <div class="alert alert-warning alert-dismissible fade show" role="alert">
                                             <strong>Aviso!</strong> O seu email ainda não foi verificado! Verifique o
@@ -63,12 +75,13 @@
                         <div class="col-xxl-4">
                             <div class="bg-secondary-soft px-4 py-5 rounded">
                                 <div class="row g-3">
-                                    <h4 class="mb-4 mt-0">Upload your profile photo</h4>
+                                    <h4 class="mb-4 mt-0">Foto de perfil</h4>
                                     <div class="text-center">
                                         <div class="picture-container">
                                             <div class="picture">
-                                                <img src="{{ url('storage/fotos/' . $user->foto_url) }}"
-                                                    class="picture-src" id="wizardPicturePreview" title="">
+                                                <img class="card-img-top"
+                                                    src="{{ url('storage/fotos/' . $user->foto_url) }}"
+                                                    alt="" />
                                                 <input type="file" class="" name="foto">
                                             </div>
                                             <h6 class="">Choose Picture</h6>

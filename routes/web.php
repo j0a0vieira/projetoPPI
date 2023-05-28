@@ -22,6 +22,10 @@ Auth::routes(['verify' => true]);
 
 Route::get('/', [App\Http\Controllers\FilmeController::class, 'index'])->name('home');
 
+Route::get('/funcionarios', [App\Http\Controllers\FuncionariosController::class, 'index'])->name('funcionarios');
+
+Route::get('/users', [App\Http\Controllers\ProfileController::class, 'listAll'])->name('users');
+
 Route::get('logout', function () {
     auth()->logout();
     Session()->flush();
