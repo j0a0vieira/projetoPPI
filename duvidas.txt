@@ -1,0 +1,3 @@
+- utilizadores bloqueados nao podem fazer login (estão a fazer)
+- atualizar foto de perfil
+- apagar conta (problemas nas constraints)
