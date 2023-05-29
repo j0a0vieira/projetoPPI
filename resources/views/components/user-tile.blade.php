@@ -4,13 +4,13 @@
             @if ($user->foto_url)
                 <img class="img-fluid" src="{{ url('storage/fotos/' . $user->foto_url) }}" alt="" />
             @else
-                <img class="img-fluid" src="{{ url('storage/fotos/no-image.jpg') }}" alt="" />
+                <img class="img-fluid" src="{{ url('storage/fotos/user.png') }}" alt="" />
             @endif
         </div>
         <div class="candidate-list-details">
             <div class="candidate-list-info">
                 <div class="candidate-list-title">
-                    <h5 class="mb-0"><a href="#">{{ $user->name }}</a></h5>
+                    <h5 class="mb-0">{{ $user->name }}</h5>
                 </div>
             </div>
         </div>

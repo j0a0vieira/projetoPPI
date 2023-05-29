@@ -4,9 +4,9 @@
 
 
 por fazer na autenticacao
--admins poder criar conta para funcionarios e admins
--admins podem filtrar(pesquisar por nome) os clientes, admins e funcionarios
--admins nao se podem bloquear nem eliminar a si próprios
+-admins poder criar conta para funcionarios e admins-
+-admins podem filtrar(pesquisar por nome) os clientes, admins e funcionarios-
+-admins nao se podem bloquear nem eliminar a si próprios-
 
 
 por fazer nos filmes em exibicao
@@ -35,8 +35,32 @@ por fazer na escolha dos lugares
 (mostrar quadrados brancos e vermelhos)
 
 
-por fazer nos recibos
--apos a compra bem sucedida, a app cria o recibo imediatamento e envia para o email do cliente
--recibo fica sempre disponivel em formato html, recebendo um endereco url imutavel
--a app deve ainda de gerar uma copia do recibo em pdf, ficando guardada e disponivel para sempre
-
+por fazer nos recibos e bilhetes
+    Implementar o processo de compra de bilhetes, incluindo o pagamento.
+    Após a conclusão bem-sucedida da compra, registrar o recibo associado à compra.
+    Enviar automaticamente o recibo por e-mail para o cliente.
+    Gerar uma versão em PDF do recibo e armazená-la na aplicação.
+    Gerar um endereço URL imutável para o recibo em formato HTML.
+    Incluir as seguintes informações no recibo:
+        Número de recibo (ID automático)
+        Data da compra
+        Dados do pagamento (tipo de pagamento e referência)
+        NIF (opcional)
+        Nome do cliente
+        Total sem IVA
+        IVA
+        Total com IVA
+    Lista de bilhetes associados à compra (ID do bilhete, filme, sala, data e horário da sessão, lugar do bilhete)
+    Gerar todos os bilhetes associados à compra.
+    Enviar automaticamente os bilhetes por e-mail para o cliente, juntamente com o recibo.
+    Gerar um endereço URL para cada bilhete em formato HTML.
+    Gerar uma versão em PDF dinâmica de cada bilhete.
+    Incluir as seguintes informações em cada bilhete (HTML e PDF):
+        ID do bilhete
+        Filme
+        Sala
+        Data e horário da sessão
+        Lugar associado ao bilhete
+        Nome e foto/avatar (se existir) do cliente que comprou o bilhete.
+    Incluir a informação no bilhete em HTML indicando se o bilhete já foi usado ou não.
+    Incluir um "QR code" com o URL associado ao bilhete no bilhete em PDF para efeitos de controle de acesso à entrada da sessão.

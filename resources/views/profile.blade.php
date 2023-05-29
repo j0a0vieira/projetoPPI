@@ -59,20 +59,21 @@
                                             <label class="form-label">Tipo de pagamento</label>
                                             <select class="form-select" aria-label="Default select example"
                                                 name="tipo_pagamento" @if (optional(Auth()->user())->tipo == 'A' && $user->tipo == 'C') disabled @endif>
-                                                <option @if ($user->cliente->tipo_pagamento == 'MBWAY') selected @endif
+                                                <option @if (optional($user->cliente)->tipo_pagamento == 'MBWAY') selected @endif
                                                     value="MBWAY">
                                                     MBWAY
                                                 </option>
-                                                <option @if ($user->cliente->tipo_pagamento == 'VISA') selected @endif
+                                                <option @if (optional($user->cliente)->tipo_pagamento == 'VISA') selected @endif
                                                     value="VISA">
                                                     VISA</option>
-                                                <option @if ($user->cliente->tipo_pagamento == 'PAYPAL') selected @endif
+                                                <option @if (optional($user->cliente)->tipo_pagamento == 'PAYPAL') selected @endif
                                                     value="PAYPAL">
                                                     PAYPAL</option>
                                             </select>
                                         </div>
                                     @endif
-                                    @if ($user->email_verified_at == null)
+
+                                    @if (auth()->user() && $user->id == auth()->user()->id && $user->email_verified_at == null)
                                         <div class="alert alert-warning alert-dismissible fade show" role="alert">
                                             <strong>Aviso!</strong> O seu email ainda não foi verificado! Verifique o
                                             seu email!

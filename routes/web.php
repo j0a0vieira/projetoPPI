@@ -29,13 +29,24 @@ Route::get('logout', function () {
     return Redirect::to('/');
 })->name('logout');
 
+
+Route::get("/newUser", function () {
+    return view('newUser');
+})->name("newUser");
+
+Route::post('/users', [App\Http\Controllers\ProfileController::class, 'store'])->name("storeUser")->withoutMiddleware(['auth']);
+
+
 Route::middleware(['auth'])->group(function () {
     Route::get("/profile", [App\Http\Controllers\ProfileController::class, 'index'])->name('profile');
     Route::post('profile/{user}', [App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
     Route::get('/user-profile/{id}', [App\Http\Controllers\ProfileController::class, 'userProfile'])->name("user-profile");
     Route::get('/delete-profile/{id}', [App\Http\Controllers\ProfileController::class, 'deleteProfile'])->name("delete-profile");
     Route::get('/block-profile/{id}', [App\Http\Controllers\ProfileController::class, 'bloquearProfile'])->name("block-profile");
-    Route::get('/funcionarios', [App\Http\Controllers\FuncionariosController::class, 'index'])->name('funcionarios');
+    Route::get('/funcionarios', [App\Http\Controllers\ProfileController::class, 'listAllFuncionarios'])->name('funcionarios');
     Route::get('/users', [App\Http\Controllers\ProfileController::class, 'listAll'])->name('users');
     Route::get('/administradores', [App\Http\Controllers\ProfileController::class, 'listAllAdmins'])->name('administradores');
+    Route::get('/searchAdmins', [App\Http\Controllers\ProfileController::class, 'searchAdmins'])->name('searchAdmins');
+    Route::get('/searchUsers', [App\Http\Controllers\ProfileController::class, 'searchUsers'])->name('searchUsers');
+    Route::get('/searchFuncionarios', [App\Http\Controllers\ProfileController::class, 'searchFuncionarios'])->name('searchFuncionarios');
 });
