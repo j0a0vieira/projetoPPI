@@ -37,5 +37,5 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/block-profile/{id}', [App\Http\Controllers\ProfileController::class, 'bloquearProfile'])->name("block-profile");
     Route::get('/funcionarios', [App\Http\Controllers\FuncionariosController::class, 'index'])->name('funcionarios');
     Route::get('/users', [App\Http\Controllers\ProfileController::class, 'listAll'])->name('users');
-    Route::get('/admins', [App\Http\Controllers\ProfileController::class, 'listAllAdmins'])->name('admins');
+    Route::get('/administradores', [App\Http\Controllers\ProfileController::class, 'listAllAdmins'])->name('administradores');
 });

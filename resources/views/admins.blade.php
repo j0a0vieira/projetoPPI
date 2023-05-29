@@ -23,12 +23,12 @@
                     <table class="table manage-candidates-top mb-0">
                         <thead>
                             <tr>
-                                <th>Funcionários</th>
+                                <th>Administradores</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($funcionarios as $funcionario)
-                                <x-user-tile :user="$funcionario" />
+                            @foreach ($admins as $admin)
+                                <x-user-tile :user="$admin" />
                             @endforeach
                         </tbody>
                     </table>

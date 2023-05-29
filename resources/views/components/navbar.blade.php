@@ -25,7 +25,7 @@
             @if (Auth()->user()->tipo == 'A')
                 <a href="{{ url('funcionarios') }}" class="btn btn-info" role="button">Funcionários</a>
                 <a href="{{ url('users') }}" class="btn btn-info" role="button">Clientes</a>
-                <a href="{{ url('admins') }}" class="btn btn-info" role="button">Admins</a>
+                <a href="{{ url('administradores') }}" class="btn btn-info" role="button">Admins</a>
             @endif
             <a href="{{ url('logout') }}" class="btn btn-info" role="button">Logout</a>
         @else<a href="{{ url('/login') }}" class="btn btn-info" role="button">Login</a>

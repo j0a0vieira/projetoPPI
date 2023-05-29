@@ -27,7 +27,7 @@ class ProfileController extends Controller
     {
         $users = User::where('tipo', 'A')->get();
 
-        return view('users')->with('users', $users);
+        return view('admins')->with('admins', $users);
     }
 
     public function userProfile($id)
@@ -41,22 +41,11 @@ class ProfileController extends Controller
     {
         $user = User::find($id);
 
-        if ($user->cliente) {
-            $cliente = $user->cliente;
-
-            // Delete associated bilhetes records
-            foreach (optional($cliente->bilhetes) ?? [] as $bilhete) {
-                $bilhete->delete();
-            }
-
-            // Delete cliente record
-            $cliente->delete();
-        }
-
         $user->delete();
 
         return redirect()->route('home');;
     }
+
 
     public function bloquearProfile($id)
     {

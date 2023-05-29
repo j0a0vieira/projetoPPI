@@ -1,3 +1,42 @@
 - utilizadores bloqueados nao podem fazer login (estão a fazer)
 - atualizar foto de perfil
 - apagar conta (problemas nas constraints)
+
+
+por fazer na autenticacao
+-admins poder criar conta para funcionarios e admins
+-admins podem filtrar(pesquisar por nome) os clientes, admins e funcionarios
+-admins nao se podem bloquear nem eliminar a si próprios
+
+
+por fazer nos filmes em exibicao
+-apenas aparece o filme caso tenha uma sessao para o dia atual ou qualquer dia posterior
+-o cartao do filme deve de apresentar as informacoes e as sessoes do dia de hoje ou posteriores
+-para cada sessao é apresentada a sala, data, hora, e se está esgotada ou nao
+-podem ainda pesquisar por genero ou texto
+
+
+por fazer na compra de bilhetes
+-criar uma pagina de carrinho de compras
+-podem adicionar bilhetes para sessoes no maximo até 5 minutos apos a sessao começar
+-qualquer utilizador ou anonimo pode usar o carrinho de compras, apenas é necessario autenticacao para finalizar
+-compra pode ser visa (16digitos + cvc3digitos), paypal(email), mbway(telefone)
+-processo de pagamento é simulado e fornecido o codigo e é feito antes da compra finalizar
+-caso haja sucesso, a app cria um recibo e bilhetes e limpa o carrinho
+-caso nao haja sucesso, nada é registado na bd e o carrinho nao é limpo e avisar o user que o pagamento é invalido
+-o user pode adicionar ou remover bilhetes quando quiser, e pode limpar por completo o carrinho
+-cada compra tem que incluir 1 ou mais bilhetes e info necessaria para o recibo: data, dados pagamento, nif(se houver), nome, total sem iva, iva, e total com iva
+-cada bilhete tem que ter um id, sessao, lugar, o preco e id do cliente
+
+
+por fazer na escolha dos lugares
+-cada lugar na sala de sessao está associado a um unico lugar
+-o utilizador escolhe o lugar ao adicionar o bilhete ao carrinho, escolhendo o lugar de forma apelativa
+(mostrar quadrados brancos e vermelhos)
+
+
+por fazer nos recibos
+-apos a compra bem sucedida, a app cria o recibo imediatamento e envia para o email do cliente
+-recibo fica sempre disponivel em formato html, recebendo um endereco url imutavel
+-a app deve ainda de gerar uma copia do recibo em pdf, ficando guardada e disponivel para sempre
+
