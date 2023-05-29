@@ -22,6 +22,10 @@ Auth::routes(['verify' => true]);
 
 Route::get('/', [App\Http\Controllers\FilmeController::class, 'index'])->name('home');
 
+Route::get('/cart', [App\Http\Controllers\CarrinhoController::class, 'mostrarCarrinho'])->name('carrinho');
+Route::post('/cart/add', [App\Http\Controllers\CarrinhoController::class, 'adicionarItem'])->name('addCarrinho');
+Route::post('/cart/remove/{index}', [App\Http\Controllers\CarrinhoController::class, 'removerItem'])->name('removeCarrinho');
+
 Route::get('logout', function () {
     auth()->logout();
     Session()->flush();

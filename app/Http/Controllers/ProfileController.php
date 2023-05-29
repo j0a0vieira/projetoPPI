@@ -54,7 +54,7 @@ class ProfileController extends Controller
 
         $user->delete();
 
-        return redirect()->route('home');;
+        return redirect()->back();
     }
 
 
@@ -72,7 +72,7 @@ class ProfileController extends Controller
             ]);
         }
 
-        return redirect()->route('home');
+        return redirect()->back();
     }
 
     public function update(User $user, Request $request)
@@ -104,7 +104,7 @@ class ProfileController extends Controller
             ]);
         }
 
-        return redirect()->route('home');
+        return redirect()->back();
     }
 
     public function store(Request $request)

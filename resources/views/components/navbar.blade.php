@@ -10,10 +10,10 @@
                 <a class="nav-link" href="{{ url('/') }}">Filmes</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Bilhetes</a>
+                <a class="nav-link" href="">Bilhetes</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Carrinho</a>
+                <a class="nav-link" href="{{ route('carrinho') }}">Carrinho</a>
             </li>
         </ul>
     </div>

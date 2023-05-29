@@ -1,4 +1,4 @@
-<div class="card m-2" style="width: 19rem;">
+<div class="card m-2" style="width: 15rem;">
 
     @if ($filme->cartaz_url)
         <img class="card-img-top" src="{{ url('storage/cartazes/' . $filme->cartaz_url) }}" alt="" />
@@ -12,6 +12,11 @@
         <div class="card-buttons mt-auto">
             <a href="{{ $filme->trailer_url }}" target="_blank" class="btn btn-primary">Ver trailer</a>
             <a href="#" class="btn btn-primary">Reservar bilhete</a>
+            <form action="{{ route('addCarrinho') }}" method="POST">
+                @csrf
+                <input type="hidden" name="filme" value="{{ $filme->titulo }}">
+                <button type="submit">Add to Cart</button>
+            </form>
         </div>
     </div>
 </div>
