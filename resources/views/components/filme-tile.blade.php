@@ -14,6 +14,7 @@
             <a href="#" class="btn btn-primary">Reservar bilhete</a>
             <form action="{{ route('addCarrinho') }}" method="POST">
                 @csrf
+                <input type="hidden" name="id" value="{{ $filme->id }}">
                 <input type="hidden" name="filme" value="{{ $filme->titulo }}">
                 <button type="submit">Add to Cart</button>
             </form>

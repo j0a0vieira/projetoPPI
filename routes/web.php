@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\filmeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
@@ -20,11 +19,13 @@ Auth::routes();
 
 Auth::routes(['verify' => true]);
 
-Route::get('/', [App\Http\Controllers\FilmeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\FilmeController::class, 'mostrarFilmes'])->name('home');
 
 Route::get('/cart', [App\Http\Controllers\CarrinhoController::class, 'mostrarCarrinho'])->name('carrinho');
 Route::post('/cart/add', [App\Http\Controllers\CarrinhoController::class, 'adicionarItem'])->name('addCarrinho');
 Route::post('/cart/remove/{index}', [App\Http\Controllers\CarrinhoController::class, 'removerItem'])->name('removeCarrinho');
+Route::post('/cart/update/{index}', [App\Http\Controllers\CarrinhoController::class, 'atualizarQuantidade'])->name('updateCarrinho');
+
 
 Route::get('logout', function () {
     auth()->logout();
@@ -53,4 +54,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/searchAdmins', [App\Http\Controllers\ProfileController::class, 'searchAdmins'])->name('searchAdmins');
     Route::get('/searchUsers', [App\Http\Controllers\ProfileController::class, 'searchUsers'])->name('searchUsers');
     Route::get('/searchFuncionarios', [App\Http\Controllers\ProfileController::class, 'searchFuncionarios'])->name('searchFuncionarios');
+    Route::get('/pagamento', [App\Http\Controllers\CarrinhoController::class, 'showPaymentForm'])->name('payment.form');
+    Route::post('/pagamento', [App\Http\Controllers\CarrinhoController::class, 'processPayment'])->name('payment.process');
 });

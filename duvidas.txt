@@ -19,8 +19,8 @@ por fazer nos filmes em exibicao
 por fazer na compra de bilhetes
 -criar uma pagina de carrinho de compras
 -podem adicionar bilhetes para sessoes no maximo até 5 minutos apos a sessao começar
--qualquer utilizador ou anonimo pode usar o carrinho de compras, apenas é necessario autenticacao para finalizar
--compra pode ser visa (16digitos + cvc3digitos), paypal(email), mbway(telefone)
+-qualquer utilizador ou anonimo pode usar o carrinho de compras, apenas é necessario autenticacao para finalizar-
+-compra pode ser visa (16digitos + cvc3digitos), paypal(email), mbway(telefone)-
 -processo de pagamento é simulado e fornecido o codigo e é feito antes da compra finalizar
 -caso haja sucesso, a app cria um recibo e bilhetes e limpa o carrinho
 -caso nao haja sucesso, nada é registado na bd e o carrinho nao é limpo e avisar o user que o pagamento é invalido

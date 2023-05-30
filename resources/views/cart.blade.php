@@ -22,6 +22,7 @@
                 <tr>
                     <th class="w-50">Filme</th>
                     <th>Ações</th>
+                    <th>Quantidade</th>
                 </tr>
             </thead>
             <tbody class="items-cart">
@@ -34,73 +35,29 @@
                                 <button class="btn btn:primary" type="submit">Remover</button>
                             </form>
                         </td>
+                        <td>
+                            <form action="{{ route('updateCarrinho', ['index' => $index]) }}" method="POST">
+                                @csrf
+                                <select name="quantidade" class="form-control" onchange="this.form.submit()">
+                                    @for ($i = 1; $i <= 10; $i++)
+                                        <option value="{{ $i }}"
+                                            {{ $item['quantidade'] == $i ? 'selected' : '' }}>
+                                            {{ $i }} {{ $i > 1 ? 'tickets' : 'ticket' }}
+                                        </option>
+                                    @endfor
+                                </select>
+                            </form>
+                        </td>
                     </tr>
                 @endforeach
+                <tr>
+                    <td>
+                        <h3>Preço Total C/IVA: €{{ number_format($totalPrice, 2) }}</h3>
+                    </td>
+                </tr>
             </tbody>
         </table>
-
-        <div class="form-group mt-5">
-            <label for="payment-method">Selecione o método de pagamento:</label>
-            <select class="form-control" id="payment-method" onchange="showPaymentFields(this.value)">
-                <option value="">-- Selecione o método de pagamento --</option>
-                <option value="paypal">PayPal</option>
-                <option value="mbway">MBWay</option>
-                <option value="visa">Visa Card</option>
-            </select>
-        </div>
-
-        <div id="paypal-fields" class="payment-fields">
-            <!-- PayPal fields here -->
-            <div class="form-group">
-                <label for="paypal-email">PayPal Email:</label>
-                <input type="email" class="form-control" id="paypal-email" placeholder="Enter your PayPal email">
-            </div>
-        </div>
-
-        <div id="mbway-fields" class="payment-fields">
-            <!-- MBWay fields here -->
-            <div class="form-group">
-                <label for="mbway-phone">Phone Number:</label>
-                <input type="tel" class="form-control" id="mbway-phone" placeholder="Enter your phone number">
-            </div>
-        </div>
-
-        <div id="visa-fields" class="payment-fields">
-            <!-- Visa Card fields here -->
-            <div class="form-group">
-                <label for="visa-card-number">Card Number:</label>
-                <input type="text" class="form-control" id="visa-card-number" placeholder="Enter your card number">
-            </div>
-            <div class="form-group">
-                <label for="visa-card-expiry">Expiry Date:</label>
-                <input type="text" class="form-control" id="visa-card-expiry" placeholder="MM/YY">
-            </div>
-            <div class="form-group">
-                <label for="visa-card-cvv">CVV:</label>
-                <input type="text" class="form-control" id="visa-card-cvv" placeholder="Enter CVV">
-            </div>
-        </div>
-
-        <button type="submit" class="btn btn-primary" id="checkout-button" disabled>Checkout</button>
-    </div>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        function showPaymentFields(paymentMethod) {
-            // Hide all payment fields
-            $(".payment-fields").hide();
-
-            // Show the selected payment fields
-            $("#" + paymentMethod + "-fields").show();
-
-            // Enable or disable the checkout button based on the selected payment method
-            if (paymentMethod !== "") {
-                $("#checkout-button").prop("disabled", false);
-            } else {
-                $("#checkout-button").prop("disabled", true);
-            }
-        }
-    </script>
+        @include('payment.form')
 </body>
 
 </html>
