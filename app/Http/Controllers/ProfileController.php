@@ -127,10 +127,14 @@ class ProfileController extends Controller
     {
         $searchQuery = $request->query('search');
         if ($searchQuery) {
-            $admins = User::where('name', 'LIKE', "%$searchQuery%")->get();
+            $admins = User::where('name', 'LIKE', "%$searchQuery%")
+                ->where('tipo', 'A')
+                ->get();
         } else {
             return redirect()->route("administradores");
         }
+
+
 
 
         return view('admins', ['admins' => $admins]);
@@ -140,7 +144,7 @@ class ProfileController extends Controller
     {
         $searchQuery = $request->query('search');
         if ($searchQuery) {
-            $clientes = User::where('name', 'LIKE', "%$searchQuery%")->get();
+            $clientes = User::where('name', 'LIKE', "%$searchQuery%")->where('tipo', 'C')->get();
         } else {
             return redirect()->route("users");
         }
@@ -153,7 +157,7 @@ class ProfileController extends Controller
     {
         $searchQuery = $request->query('search');
         if ($searchQuery) {
-            $funcionarios = User::where('name', 'LIKE', "%$searchQuery%")->get();
+            $funcionarios = User::where('name', 'LIKE', "%$searchQuery%")->where('tipo', 'F')->get();
         } else {
             return redirect()->route("funcionarios");
         }
