@@ -19,4 +19,14 @@ class Cliente extends Model
     {
         return $this->belongsTo(User::class, 'id', 'id');
     }
+
+    public function Recibo()
+    {
+        return $this->hasMany(Recibo::class, 'cliente_id', 'id');
+    }
+
+    public function Bilhete()
+    {
+        return $this->hasMany(Bilhete::class, 'cliente_id', 'id');
+    }
 }

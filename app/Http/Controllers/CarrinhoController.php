@@ -7,6 +7,14 @@ use App\Services\Payment;
 
 class CarrinhoController extends Controller
 {
+
+    protected $_paymentService;
+
+    public function __construct(Payment $payment)
+    {
+        $this->_paymentService = $payment;
+    }
+
     public function mostrarCarrinho()
     {
         $itemsCarrinho = session()->get('itemsCarrinho', []);
@@ -87,10 +95,12 @@ class CarrinhoController extends Controller
         $totalPrice = 0;
 
         foreach ($itemsCarrinho as $item) {
-            $totalPrice += $item['quantidade'] * 5; // Each ticket costs 5 euros
+            $totalPrice += $item['quantidade'] * 5; //cada bilhete custa 5€ 
         }
 
-        $totalPrice *= 1.23; // Apply 23% tax
+        session()->put('totalPriceS/IVA', $totalPrice);
+
+        $totalPrice *= 1.23; //taxa de 1.23€
 
         return $totalPrice;
     }
@@ -102,25 +112,51 @@ class CarrinhoController extends Controller
 
     public function processPayment(Request $request)
     {
-        // Handle the payment processing logic based on the selected payment method
         $paymentMethod = $request->input('payment_method');
+
+        if ($request->input('paypal_email') != "" || $request->input('mbway_phone') != "" || $request->input('visa_card_number') != "" || $request->input('visa_card_expiry') != "" || $request->input('visa_card_cvv') != "") {
+            $paypal_valido = true;
+            $mbway_valido = true;
+            $visa_valido = true;
+            $ref_pagamento = true;
+        } else {
+            return back()->withError("Dados de pagamento inválidos! Insira os dados corretamente, por favor.")->withInput();
+        }
+
 
         if ($paymentMethod === 'paypal') {
             $paypalEmail = $request->input('paypal_email');
-
-            // Process PayPal payment
+            $paypal_valido = $this->_paymentService->payWithPaypal($paypalEmail);
+            $ref_pagamento = $paypalEmail;
         } elseif ($paymentMethod === 'mbway') {
-            $mbwayPhone = $request->input('mbway_phone');
-
-            // Process MBWay payment
+            $mbway = $request->input('mbway_phone');
+            $mbway_valido = $this->_paymentService->payWithMBway($mbway);
+            $ref_pagamento = $mbway;
         } elseif ($paymentMethod === 'visa') {
             $cardNumber = $request->input('visa_card_number');
-            $expiryDate = $request->input('visa_card_expiry');
             $cvv = $request->input('visa_card_cvv');
+            $ref_pagamento = $cardNumber;
 
-            // Process Visa Card payment
+            $visa_valido = $this->_paymentService->payWithVisa($cardNumber, $cvv);
         }
 
-        // Return the response or redirect as per your requirement
+        if (!$paypal_valido || !$mbway_valido || !$visa_valido) {
+            return back()->withError("Dados de pagamento inválidos! Insira os dados corretamente, por favor.")->withInput();
+        }
+
+        $pagamento = [
+            'tipoPagamento' => $paymentMethod,
+            'referenciaPagamento' => $ref_pagamento,
+        ];
+
+        session()->put('infoPagamento', $pagamento);
+        return redirect()->route("finalizacaoCompra");
+    }
+
+    public function limparCarrinho()
+    {
+        session()->forget('itemsCarrinho');
+
+        return back()->with('success', 'Todos os items foram removidos do carrinho!');
     }
 }

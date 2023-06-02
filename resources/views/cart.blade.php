@@ -16,6 +16,9 @@
 <body>
     <x-navbar />
     <div class="container mt-5">
+        @if (session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
         <h1>Carrinho</h1>
         <table class="table">
             <thead>
@@ -23,6 +26,12 @@
                     <th class="w-50">Filme</th>
                     <th>Ações</th>
                     <th>Quantidade</th>
+                    <th>
+                        <form action="{{ route('limparCarrinho') }}" method="POST">
+                            @csrf
+                            <button class="btn btn-danger" type="submit">Esvaziar Carrinho</button>
+                        </form>
+                    </th>
                 </tr>
             </thead>
             <tbody class="items-cart">
@@ -57,6 +66,9 @@
                 </tr>
             </tbody>
         </table>
+        @if (session('error'))
+            <div class="alert alert-danger">{{ session('error') }}</div>
+        @endif
         @include('payment.form')
 </body>
 

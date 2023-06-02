@@ -39,8 +39,14 @@ Route::get("/newUser", function () {
     return view('newUser');
 })->name("newUser");
 
-Route::post('/users', [App\Http\Controllers\ProfileController::class, 'store'])->name("storeUser")->withoutMiddleware(['auth']);
+Route::get("/seats", function () {
+    return view('seats');
+});
 
+Route::post('/users', [App\Http\Controllers\ProfileController::class, 'store'])->name("storeUser")->withoutMiddleware(['auth']);
+Route::get('/cjrf', function () {
+    return "teste";
+});
 
 Route::middleware(['auth'])->group(function () {
     Route::get("/profile", [App\Http\Controllers\ProfileController::class, 'index'])->name('profile');
@@ -56,4 +62,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/searchFuncionarios', [App\Http\Controllers\ProfileController::class, 'searchFuncionarios'])->name('searchFuncionarios');
     Route::get('/pagamento', [App\Http\Controllers\CarrinhoController::class, 'showPaymentForm'])->name('payment.form');
     Route::post('/pagamento', [App\Http\Controllers\CarrinhoController::class, 'processPayment'])->name('payment.process');
+    Route::post('/limparCarrinho', [App\Http\Controllers\CarrinhoController::class, 'limparCarrinho'])->name('limparCarrinho');
+    Route::get('/finalizacaoCompra', [App\Http\Controllers\CompraController::class, 'guardarRecibo'])->name('finalizacaoCompra');
+    Route::post('/lugares', [App\Http\Controllers\CompraController::class, 'lugares'])->name('lugares');
 });

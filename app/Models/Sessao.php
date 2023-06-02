@@ -9,6 +9,9 @@ class Sessao extends Model
 {
     use HasFactory;
 
+    protected $table = 'Sessoes';
+
+
     public function Filme()
     {
         return $this->belongsTo(Filme::class);

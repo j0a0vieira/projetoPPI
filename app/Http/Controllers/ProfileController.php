@@ -80,8 +80,10 @@ class ProfileController extends Controller
         $caminho = $user->foto_url;
 
         if ($request->hasFile('foto')) {
-            $newImagem = $request->file('foto');
-            $caminho = $newImagem->store('fotos');
+
+            $imagem = $request->file('foto');
+            $caminho = $user->id . "_" . uniqid() . '.' . $imagem->extension();
+            $imagem->storeAs('public/fotos', $caminho);
         }
 
         $user->update([
@@ -133,9 +135,6 @@ class ProfileController extends Controller
         } else {
             return redirect()->route("administradores");
         }
-
-
-
 
         return view('admins', ['admins' => $admins]);
     }

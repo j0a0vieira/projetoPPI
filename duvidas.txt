@@ -1,6 +1,6 @@
 - utilizadores bloqueados nao podem fazer login (estão a fazer)
 - atualizar foto de perfil
-- apagar conta (problemas nas constraints)
+- apagar conta (problemas nas constraints) (add softdelete no modelo)
 
 
 por fazer na autenticacao
@@ -17,15 +17,15 @@ por fazer nos filmes em exibicao
 
 
 por fazer na compra de bilhetes
--criar uma pagina de carrinho de compras
+-criar uma pagina de carrinho de compras-
 -podem adicionar bilhetes para sessoes no maximo até 5 minutos apos a sessao começar
 -qualquer utilizador ou anonimo pode usar o carrinho de compras, apenas é necessario autenticacao para finalizar-
 -compra pode ser visa (16digitos + cvc3digitos), paypal(email), mbway(telefone)-
--processo de pagamento é simulado e fornecido o codigo e é feito antes da compra finalizar
+-processo de pagamento é simulado e fornecido o codigo e é feito antes da compra finalizar-
 -caso haja sucesso, a app cria um recibo e bilhetes e limpa o carrinho
--caso nao haja sucesso, nada é registado na bd e o carrinho nao é limpo e avisar o user que o pagamento é invalido
--o user pode adicionar ou remover bilhetes quando quiser, e pode limpar por completo o carrinho
--cada compra tem que incluir 1 ou mais bilhetes e info necessaria para o recibo: data, dados pagamento, nif(se houver), nome, total sem iva, iva, e total com iva
+-caso nao haja sucesso, nada é registado na bd e o carrinho nao é limpo e avisar o user que o pagamento é invalido-
+-o user pode adicionar ou remover bilhetes quando quiser, e pode limpar por completo o carrinho-
+-cada compra tem que incluir 1 ou mais bilhetes e info necessaria para o recibo: data, dados pagamento, nif(se houver), nome, total sem iva, iva, e total com iva !!!!!!!!!!!!!!!!!!!
 -cada bilhete tem que ter um id, sessao, lugar, o preco e id do cliente
 
 
@@ -64,3 +64,10 @@ por fazer nos recibos e bilhetes
         Nome e foto/avatar (se existir) do cliente que comprou o bilhete.
     Incluir a informação no bilhete em HTML indicando se o bilhete já foi usado ou não.
     Incluir um "QR code" com o URL associado ao bilhete no bilhete em PDF para efeitos de controle de acesso à entrada da sessão.
+
+
+
+PDS:
+TENHO O POPUP DOS LUGARES
+APOS FINALIZAR COMPRA, ESTOU A TENTAR GUARDAR O RECIBO NA DATABASE PARA DEPOIS PODER FAZER O SEU DOWNLOAD PROPRIAMENTE
+APOS ISSO COMECAR A TRABALHAR NAS SESSOES E LUGARES, APOS ISSO BILHETES
