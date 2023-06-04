@@ -25,7 +25,6 @@
                 <tr>
                     <th class="w-50">Filme</th>
                     <th>Ações</th>
-                    <th>Quantidade</th>
                     <th>
                         <form action="{{ route('limparCarrinho') }}" method="POST">
                             @csrf
@@ -42,19 +41,6 @@
                             <form action="{{ route('removeCarrinho', ['index' => $index]) }}" method="POST">
                                 @csrf
                                 <button class="btn btn:primary" type="submit">Remover</button>
-                            </form>
-                        </td>
-                        <td>
-                            <form action="{{ route('updateCarrinho', ['index' => $index]) }}" method="POST">
-                                @csrf
-                                <select name="quantidade" class="form-control" onchange="this.form.submit()">
-                                    @for ($i = 1; $i <= 10; $i++)
-                                        <option value="{{ $i }}"
-                                            {{ $item['quantidade'] == $i ? 'selected' : '' }}>
-                                            {{ $i }} {{ $i > 1 ? 'tickets' : 'ticket' }}
-                                        </option>
-                                    @endfor
-                                </select>
                             </form>
                         </td>
                     </tr>

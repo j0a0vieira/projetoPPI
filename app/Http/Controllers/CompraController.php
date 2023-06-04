@@ -33,11 +33,4 @@ class CompraController extends Controller
             return redirect()->route('home');
         }
     }
-
-    public function lugares(Request $request)
-    {
-        $selectedSeats = json_decode($request->input('selectedSeats'));
-
-        dd($selectedSeats);
-    }
 }

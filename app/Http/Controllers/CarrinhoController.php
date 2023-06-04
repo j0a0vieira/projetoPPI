@@ -23,10 +23,10 @@ class CarrinhoController extends Controller
         return view('cart', compact('itemsCarrinho', 'totalPrice'));
     }
 
-
     public function adicionarItem(Request $request)
     {
         $filmeNome = $request->input('filme');
+
         $quantidade = $request->input('quantidade', 1);
         $id = $request->input('id');
 

@@ -10,7 +10,6 @@ class Bilhete extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id',
         'cliente_id',
         'recibo_id',
         'sessao_id',

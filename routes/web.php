@@ -44,11 +44,8 @@ Route::get("/seats", function () {
 });
 
 Route::post('/users', [App\Http\Controllers\ProfileController::class, 'store'])->name("storeUser")->withoutMiddleware(['auth']);
-Route::get('/cjrf', function () {
-    return "teste";
-});
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'user-block'])->group(function () {
     Route::get("/profile", [App\Http\Controllers\ProfileController::class, 'index'])->name('profile');
     Route::post('profile/{user}', [App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
     Route::get('/user-profile/{id}', [App\Http\Controllers\ProfileController::class, 'userProfile'])->name("user-profile");
