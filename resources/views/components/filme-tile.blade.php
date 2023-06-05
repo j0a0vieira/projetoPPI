@@ -31,6 +31,11 @@
                                     value="Session 3">
                                 <label class="form-check-label" for="session3">Session 3</label>
                             </div>
+                            <div>
+                            <a href="{{ route('lugares') }}" class="btn btn-primary">Lugares</a>
+
+                            </div>
+                          
                         </div>
                         <div class="mt-auto text-end">
                             <a href="#" class="btn btn-primary">Button 1</a>

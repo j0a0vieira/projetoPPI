@@ -30,4 +30,13 @@ class FilmeController extends Controller
 
         return view('layout', ['filmes' => $movies]);
     }
+
+    public function detalhes($id)
+    {
+        $filme = Filme::find($id);
+
+        return view('detalhes', compact('filme'));
+    }
+
+
 }

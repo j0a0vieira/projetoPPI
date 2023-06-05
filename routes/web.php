@@ -20,6 +20,8 @@ Auth::routes();
 Auth::routes(['verify' => true]);
 
 Route::get('/', [App\Http\Controllers\FilmeController::class, 'mostrarFilmes'])->name('home');
+Route::get('/lugares', [App\Http\Controllers\LugarController::class, 'index'])->name('lugares');
+
 
 Route::get('/cart', [App\Http\Controllers\CarrinhoController::class, 'mostrarCarrinho'])->name('carrinho');
 Route::post('/cart/add', [App\Http\Controllers\CarrinhoController::class, 'adicionarItem'])->name('addCarrinho');
