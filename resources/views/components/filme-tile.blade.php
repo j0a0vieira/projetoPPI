@@ -1,49 +1,43 @@
-<div class="row">
-    <div class="col-md-12">
-        <div class="card mb-3">
-            <div class="row g-0">
-                <div class="col-md-3">
-                    @if ($filme->cartaz_url)
-                        <img class="img-fluid rounded-start" src="{{ url('storage/cartazes/' . $filme->cartaz_url) }}"
-                            alt="" />
-                    @else
-                        <img class="img-fluid rounded-start" src="{{ url('storage/cartazes/no-image.png') }}"
-                            alt="" />
+<div class="col-md-4 mt-2">
+    <div class="card h-100 d-flex flex-column">
+        @if ($filme->cartaz_url)
+            <img class="card-img-top" src="{{ url('storage/cartazes/' . $filme->cartaz_url) }}" alt="" />
+        @else
+            <img class="card-img-top" src="{{ url('storage/cartazes/no-image.png') }}" alt="" />
+        @endif
+        <div class="card-body d-flex flex-column">
+            <h5 class="card-title">{{ $filme->titulo }}&ThickSpace;<span
+                    class="font-weight-light">{{ $filme->genero_code }}</span></h5>
+            <p class="card-text flex-grow-1">{{ $filme->sumario }}</p>
+            <form action="{{ route('addCarrinho') }}" method="POST">
+                @csrf
+                <input type="hidden" name="id" value="{{ $filme->id }}">
+                <input type="hidden" name="filme" value="{{ $filme->titulo }}">
+                <ul class="list-group list-group-flush" style="max-height: 200px; overflow-y: auto;">
+                    @foreach ($sessoes as $sessao)
+                        @if ($sessao->filme_id == $filme->id)
+                            <li class="list-group-item">
+                                <input type="radio" name="sessao_id" value="{{ $sessao->id }}" required>
+                                <span class="session-details" data-date="{{ $sessao->data }}"
+                                    data-start-time="{{ $sessao->horario_inicio }}"
+                                    data-end-time="{{ $sessao->horario_fim }}">
+                                    {{ $sessao->data }} - {{ $sessao->horario_inicio }}
+                                </span>
+                            </li>
+                        @endif
+                    @endforeach
+                </ul>
+                <div class="card-body">
+                    @if (Auth::user() && Auth()->user()->tipo == 'A')
+                        <a href="{{ route('filme-detalhes', ['id' => $filme->id]) }}"
+                            class="btn btn-primary">Consultar</a>
                     @endif
+                    <button id="modalButton" class="mt-1 btn btn-primary" type="button" style="display: none;">View
+                        Seats</button>
+                    <button class="mt-1 btn btn-primary" type="submit">Adicionar ao carrinho</button>
                 </div>
-                <div class="col-md-8">
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title text-center">{{ $filme->titulo }}</h5>
-                        <p class="card-text text-center">{{ $filme->sumario }}</p>
-                        <div class="d-flex flex-column align-items-center">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="session" id="session1"
-                                    value="Session 1" checked>
-                                <label class="form-check-label" for="session1">Session 1</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="session" id="session2"
-                                    value="Session 2">
-                                <label class="form-check-label" for="session2">Session 2</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="session" id="session3"
-                                    value="Session 3">
-                                <label class="form-check-label" for="session3">Session 3</label>
-                            </div>
-                            <div>
-                            <a href="{{ route('lugares') }}" class="btn btn-primary">Lugares</a>
-
-                            </div>
-                          
-                        </div>
-                        <div class="mt-auto text-end">
-                            <a href="#" class="btn btn-primary">Button 1</a>
-                            <a href="#" class="btn btn-secondary">Button 2</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

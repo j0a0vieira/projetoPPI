@@ -9,17 +9,14 @@ use Illuminate\View\Component;
 class filmeTile extends Component
 {
     public $filme;
-    /**
-     * Create a new component instance.
-     */
-    public function __construct($filme)
+    public $sessoes;
+
+    public function __construct($filme, $sessoes)
     {
         $this->filme = $filme;
+        $this->sessoes = $sessoes;
     }
 
-    /**
-     * Get the view / contents that represent the component.
-     */
     public function render(): View|Closure|string
     {
         return view('components.filme-tile');

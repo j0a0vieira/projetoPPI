@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Sessao;
 use Illuminate\Http\Request;
 use App\Services\Payment;
 
@@ -29,6 +30,7 @@ class CarrinhoController extends Controller
 
         $quantidade = $request->input('quantidade', 1);
         $id = $request->input('id');
+        $sessao = Sessao::find($request->input('sessao_id'));
 
         $itemsCarrinho = session()->get('itemsCarrinho', []);
 
@@ -42,6 +44,7 @@ class CarrinhoController extends Controller
             $itemsCarrinho[] = [
                 'id' => $id,
                 'nome' => $filmeNome,
+                'sessao' => $sessao,
                 'quantidade' => $quantidade,
             ];
         }
@@ -62,24 +65,6 @@ class CarrinhoController extends Controller
 
         if (isset($itemsCarrinho[$index])) {
             unset($itemsCarrinho[$index]);
-            session()->put('itemsCarrinho', $itemsCarrinho);
-        }
-
-        $totalPrice = $this->calculateTotalPrice($itemsCarrinho);
-
-        session()->put('totalPrice', $totalPrice);
-
-        return redirect()->back();
-    }
-
-    public function atualizarQuantidade(Request $request, $index)
-    {
-        $quantidade = $request->input('quantidade');
-
-        $itemsCarrinho = session()->get('itemsCarrinho', []);
-
-        if (isset($itemsCarrinho[$index])) {
-            $itemsCarrinho[$index]['quantidade'] = $quantidade;
             session()->put('itemsCarrinho', $itemsCarrinho);
         }
 
@@ -158,5 +143,9 @@ class CarrinhoController extends Controller
         session()->forget('itemsCarrinho');
 
         return back()->with('success', 'Todos os items foram removidos do carrinho!');
+    }
+
+    public function escolherLugares()
+    {
     }
 }
