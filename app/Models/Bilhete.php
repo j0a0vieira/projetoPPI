@@ -27,4 +27,9 @@ class Bilhete extends Model
     {
         return $this->belongsTo(Recibo::class, 'recibo_id', 'id');
     }
+
+    public function Sessao()
+    {
+        return $this->belongsTo(Sessao::class);
+    }
 }

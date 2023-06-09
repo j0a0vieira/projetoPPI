@@ -1,73 +1,56 @@
-<!DOCTYPE html>
-<html>
+@extends('./layouts/main-layout')
+@section('main')
+    <h1 class="text-center mt-4">Sala: {{ $sessao->sala->nome }}</h1>
+    <div>
+        @php
+            $rows = $numeroFilas;
+            $columns = $numeroLugares;
+        @endphp
 
-<head>
-    <title>Cinema Room Simulation</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <style>
-        .seat {
-            margin: 5px;
-            width: 30px;
-            height: 30px;
-            background-color: #e9ecef;
-            border-radius: 3px;
-            cursor: pointer;
-        }
+        <div>
+            <form action="{{ route('addCarrinho') }}" method="POST">
+                @csrf
+                <input type="hidden" name="sessao" value="{{ $sessao->id }}">
 
-        .seat.selected {
-            background-color: #6c757d;
-            cursor: default;
-        }
+                @for ($row = 1; $row <= $rows; $row++)
+                    <div class="d-flex justify-content-center">
+                        @for ($column = 1; $column <= $columns; $column++)
+                            <?php
+                            $seat = $sessao->sala->lugares
+                                ->where('fila', chr(64 + $row))
+                                ->where('posicao', $column)
+                                ->first();
+                            $rowLetter = chr(64 + $row);
+                            $seatId = $column . '-' . $rowLetter;
+                            ?>
 
-        .row-label {
-            display: inline-block;
-            width: 40px;
-            text-align: right;
-            margin-right: 10px;
-        }
+                            <div class="seat" style="margin-left: 20px;" id="{{ $seatId }}"
+                                onclick="toggleSeat('{{ $seatId }}')">
+                                <p>{{ $seatId }}</p>
+                                <input type="checkbox" name="seatId[]" value="{{ $seatId }}">
+                            </div>
+                        @endfor
+                    </div>
+                @endfor
 
-        .center-square {
-            display: flex;
-            justify-content: center;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="container mt-5">
-        <h2>Cinema Room Simulation</h2>
-        <div class="row">
-            <div class="col-md-12">
-                <div id="cinema-room">
-                    @foreach ($lugares as $lugar)
-                        @if ($loop->first)
-                            <div class="center-square">
-                        @endif
-
-                        @if ($lugar->row != $prevRow)
+                <div class="col-md-12 text-center">
+                    <button type="submit" class="btn btn-primary mt-4">Selecionar lugar e adicionar ao
+                        carrinho</button>
                 </div>
-                <div class="center-square">
-                    <div class="row-label">{{ $lugar->row }}</div>
-                    @endif
+            </form>
 
-                    <div class="seat" data-row="{{ $lugar->row }}" data-number="{{ $lugar->number }}"></div>
-
-                    @php
-                        $prevRow = $lugar->row;
-                    @endphp
-
-                    @if ($loop->last)
-                </div>
-                @endif
-                @endforeach
-            </div>
         </div>
     </div>
-    </div>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-</body>
+    <script>
+        function toggleSeat(seatId) {
+            var seat = document.getElementById(seatId);
 
-</html>
+            if (seat.classList.contains('selected')) {
+                seat.classList.remove('selected');
+            } else {
+                seat.classList.add('selected');
+            }
+        }
+    </script>
+@endsection

@@ -21,33 +21,41 @@ class CarrinhoController extends Controller
         $itemsCarrinho = session()->get('itemsCarrinho', []);
         $totalPrice = $this->calculateTotalPrice($itemsCarrinho);
 
-        return view('cart', compact('itemsCarrinho', 'totalPrice'));
+        $idsSessoes = array_keys($itemsCarrinho);
+
+        $sessoes = Sessao::whereIn('id', $idsSessoes)->get();
+
+        $data = [];
+        $info = [];
+
+        foreach ($sessoes as $sessao) {
+            $sessaoId = $sessao->id;
+            $lugares = $itemsCarrinho[$sessaoId];
+
+            $sessaoInfo = [
+                'id' => $sessao->id,
+                'filme' => $sessao->filme->titulo,
+                'sala' => $sessao->sala,
+                'data' => $sessao->data,
+                'horario' => $sessao->horario_inicio,
+            ];
+
+            $sessaoInfo['lugares'] = $lugares;
+
+            $info[] = $sessaoInfo;
+        }
+
+        return view('cart', compact('info', 'totalPrice'));
     }
 
     public function adicionarItem(Request $request)
     {
-        $filmeNome = $request->input('filme');
-
-        $quantidade = $request->input('quantidade', 1);
-        $id = $request->input('id');
-        $sessao = Sessao::find($request->input('sessao_id'));
+        $sessao = Sessao::find($request->input('sessao'));
+        $lugares = $request->input('seatId');
 
         $itemsCarrinho = session()->get('itemsCarrinho', []);
 
-        $existingItem = collect($itemsCarrinho)->first(function ($item) use ($id) {
-            return $item['id'] == $id;
-        });
-
-        if ($existingItem) {
-            return redirect()->back();
-        } else {
-            $itemsCarrinho[] = [
-                'id' => $id,
-                'nome' => $filmeNome,
-                'sessao' => $sessao,
-                'quantidade' => $quantidade,
-            ];
-        }
+        $itemsCarrinho[$sessao->id] = $lugares;
 
         session()->put('itemsCarrinho', $itemsCarrinho);
 
@@ -59,18 +67,12 @@ class CarrinhoController extends Controller
     }
 
 
-    public function removerItem($index)
+    public function removerItem($id)
     {
         $itemsCarrinho = session()->get('itemsCarrinho', []);
 
-        if (isset($itemsCarrinho[$index])) {
-            unset($itemsCarrinho[$index]);
-            session()->put('itemsCarrinho', $itemsCarrinho);
-        }
-
-        $totalPrice = $this->calculateTotalPrice($itemsCarrinho);
-
-        session()->put('totalPrice', $totalPrice);
+        unset($itemsCarrinho[$id]);
+        session()->put('itemsCarrinho', $itemsCarrinho);
 
         return redirect()->back();
     }
@@ -80,7 +82,7 @@ class CarrinhoController extends Controller
         $totalPrice = 0;
 
         foreach ($itemsCarrinho as $item) {
-            $totalPrice += $item['quantidade'] * 5; //cada bilhete custa 5€ 
+            $totalPrice += count($item) * 5; //cada bilhete custa 5€ 
         }
 
         session()->put('totalPriceS/IVA', $totalPrice);
@@ -97,6 +99,11 @@ class CarrinhoController extends Controller
 
     public function processPayment(Request $request)
     {
+
+        if (empty(session()->get('itemsCarrinho', []))) {
+            return back()->with("carrinhoVazio", "Você tem o carrinho vazio!");
+        }
+
         $paymentMethod = $request->input('payment_method');
 
         if ($request->input('paypal_email') != "" || $request->input('mbway_phone') != "" || $request->input('visa_card_number') != "" || $request->input('visa_card_expiry') != "" || $request->input('visa_card_cvv') != "") {
@@ -107,7 +114,6 @@ class CarrinhoController extends Controller
         } else {
             return back()->withError("Dados de pagamento inválidos! Insira os dados corretamente, por favor.")->withInput();
         }
-
 
         if ($paymentMethod === 'paypal') {
             $paypalEmail = $request->input('paypal_email');
@@ -143,9 +149,5 @@ class CarrinhoController extends Controller
         session()->forget('itemsCarrinho');
 
         return back()->with('success', 'Todos os items foram removidos do carrinho!');
-    }
-
-    public function escolherLugares()
-    {
     }
 }

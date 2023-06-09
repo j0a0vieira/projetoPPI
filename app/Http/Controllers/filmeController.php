@@ -56,7 +56,7 @@ class FilmeController extends Controller
 
         $generos = Filme::distinct('genero_code')->pluck('genero_code');
 
-        return view('layout')
+        return view('movies')
             ->with('filmes', $movies)
             ->with('sessoes', $sessions)
             ->with('generos', $generos);
@@ -114,8 +114,7 @@ class FilmeController extends Controller
             return redirect()->route("home");
         }
 
-
-        return view('layout')
+        return view('movies')
             ->with('filmes', $filmes)
             ->with('sessoes', $sessions);
     }

@@ -25,6 +25,6 @@ class Recibo extends Model
 
     public function Cliente()
     {
-        return $this->belongsTo(Cliente::class, 'cliente_id', 'id');
+        return $this->belongsTo(Cliente::class, 'id', 'id');
     }
 }

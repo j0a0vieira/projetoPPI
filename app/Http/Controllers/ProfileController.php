@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bilhete;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -111,16 +112,9 @@ class ProfileController extends Controller
 
     public function store(Request $request)
     {
-        // Retrieve the data for the new user from the request
         $userData = $request->only(['name', 'email', 'password', 'tipo']);
-
-        // Encrypt the password
         $userData['password'] = Hash::make($userData['password']);
-
-        // Create the new user
-        $user = User::create($userData);
-
-        // Optionally, you can perform additional actions or validation here
+        User::create($userData);
 
         return redirect()->route('home');
     }
@@ -161,7 +155,17 @@ class ProfileController extends Controller
             return redirect()->route("funcionarios");
         }
 
-
         return view('funcionarios', ['funcionarios' => $funcionarios]);
+    }
+
+    public function bilhetes()
+    {
+        $bilhetes = Bilhete::where('cliente_id', Auth::user()->cliente->id)->get();
+
+        if ($bilhetes->count() === 0) {
+            return view('bilhetes')->with('bilhetes', null);
+        }
+
+        return view('bilhetes')->with('bilhetes', $bilhetes);
     }
 }

@@ -1,20 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css"
-        integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Funcionários</title>
-    <link rel="stylesheet" href="{{ asset('css/estilos.css') }}">
-
-</head>
-
-<body>
-    <x-navbar />
+@extends('./layouts/main-layout')
+@section('main')
     <div class="container mt-3 mb-4">
         <div class="row">
             <div class="col-md-12">
@@ -43,6 +28,4 @@
             </div>
         </div>
     </div>
-</body>
-
-</html>
+@endsection

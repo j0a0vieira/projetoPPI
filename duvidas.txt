@@ -4,3 +4,5 @@ por fazer:
 - ao adicionar bilhete, escolher o lugar da sala correspondente à sessão escolhida
 - ao efetuar a compra, gerar bilhete e recibo e fazer o seu download e, colocar o lugar da sessao como ocupado
 - ativar o mailtrap antes de entregar o projeto
+- estatisticas
+-usar extends para as views

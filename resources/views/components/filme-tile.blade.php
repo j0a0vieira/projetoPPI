@@ -9,7 +9,7 @@
             <h5 class="card-title">{{ $filme->titulo }}&ThickSpace;<span
                     class="font-weight-light">{{ $filme->genero_code }}</span></h5>
             <p class="card-text flex-grow-1">{{ $filme->sumario }}</p>
-            <form action="{{ route('addCarrinho') }}" method="POST">
+            <form action="{{ route('selecionarLugares') }}" method="get">
                 @csrf
                 <input type="hidden" name="id" value="{{ $filme->id }}">
                 <input type="hidden" name="filme" value="{{ $filme->titulo }}">

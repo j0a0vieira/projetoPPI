@@ -1,19 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="{{ URL::asset('css/estilos.css') }} " rel="stylesheet">
-    <title>Filme</title>
-</head>
-
-<body>
-    <x-navbar />
+@extends('./layouts/main-layout')
+@section('main')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8">
@@ -23,8 +9,7 @@
                     </div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('filme-update', $filme->id) }}"
-                            enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('filme-update', $filme->id) }}" enctype="multipart/form-data">
                             @csrf
 
                             <div class="form-group">
@@ -88,6 +73,4 @@
             </div>
         </div>
     </div>
-</body>
-
-</html>
+@endsection

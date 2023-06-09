@@ -1,16 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Nova conta</title>
-</head>
-
-<body>
-    <x-navbar />
+@extends('./layouts/main-layout')
+@section('main')
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -22,8 +11,7 @@
                             @csrf
 
                             <div class="row mb-3">
-                                <label for="name"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
+                                <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="name" type="text"
@@ -106,6 +94,4 @@
             </div>
         </div>
     </div>
-</body>
-
-</html>
+@endsection
