@@ -17,7 +17,7 @@
     </td>
     <td>
         <ul class="list-unstyled mb-0 d-flex justify-content-end">
-            @if (Auth()->user()->tipo == 'A')
+            @if (Auth()->user()->tipo == 'A' && $user->tipo != 'C')
                 <li><a href="{{ route('user-profile', ['id' => $user->id]) }} target="_blank" class="btn btn-primary">
                         Consultar
                     </a></li>

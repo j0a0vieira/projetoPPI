@@ -118,11 +118,4 @@ class FilmeController extends Controller
             ->with('filmes', $filmes)
             ->with('sessoes', $sessions);
     }
-
-    public function detalhes($id)
-    {
-        $filme = Filme::find($id);
-
-        return view('detalhes', compact('filme'));
-    }
 }

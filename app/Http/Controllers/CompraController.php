@@ -7,7 +7,11 @@ use App\Models\Lugar;
 use App\Models\Recibo;
 use App\Models\Sessao;
 use Carbon\Carbon;
+use Dompdf\Dompdf;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class CompraController extends Controller
 {
@@ -59,5 +63,44 @@ class CompraController extends Controller
 
         session()->forget('itemsCarrinho');
         return redirect()->route('home')->with('bilhetesSucesso', 'Bilhetes comprados com sucesso!');
+    }
+
+    public function descarregarBilhetes($id)
+    {
+        $bilhete = Bilhete::where('id', $id)->first();
+        $pdf = new Dompdf();
+        $pdf->loadHtml(View::make('/payment/bilhete', compact('bilhete'))->render());
+        $pdf->setPaper('A4', 'portrait');
+        $pdf->render();
+
+        $pdfContent = $pdf->output();
+        $filename = 'bilhete_' . $id . '.pdf';
+        $directory = storage_path('/bilhetes');
+        File::makeDirectory($directory, 0777, true, true);
+        $pdfPath = $directory . '/' . $filename;
+        file_put_contents($pdfPath, $pdfContent);
+
+        return response()->download($pdfPath, $filename);
+    }
+
+    public function descarregarRecibo($id)
+    {
+        $bilhete = Bilhete::where('id', $id)->first();
+        $recibo = $bilhete->recibo;
+        $bilhetes = Bilhete::where('recibo_id', $recibo->id)->get();
+
+        $pdf = new Dompdf();
+        $pdf->loadHtml(View::make('/payment/recibo', compact('recibo', 'bilhetes'))->render());
+        $pdf->setPaper('A4', 'portrait');
+        $pdf->render();
+
+        $pdfContent = $pdf->output();
+        $filename = 'recibo_' . $id . '.pdf';
+        $directory = storage_path('/recibos');
+        File::makeDirectory($directory, 0777, true, true);
+        $pdfPath = $directory . '/' . $filename;
+        file_put_contents($pdfPath, $pdfContent);
+
+        return response()->download($pdfPath, $filename);
     }
 }

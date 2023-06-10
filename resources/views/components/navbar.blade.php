@@ -27,6 +27,7 @@
                 <a href="{{ url('users') }}" class="btn btn-info" role="button">Clientes</a>
                 <a href="{{ url('administradores') }}" class="btn btn-info" role="button">Admins</a>
                 <a href="{{ route('newFilmeLayout') }}" class="btn btn-info" role="button">Novo Filme</a>
+                <a href="{{ route('newSalaLayout') }}" class="btn btn-info" role="button">Nova Sala</a>
                 <a href="{{ url('newUser') }}" class="btn btn-info" role="button">Nova Conta</a>
             @endif
             <a href="{{ url('logout') }}" class="btn btn-info" role="button">Logout</a>

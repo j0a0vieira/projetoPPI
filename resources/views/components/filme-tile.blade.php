@@ -21,7 +21,8 @@
                                 <span class="session-details" data-date="{{ $sessao->data }}"
                                     data-start-time="{{ $sessao->horario_inicio }}"
                                     data-end-time="{{ $sessao->horario_fim }}">
-                                    {{ $sessao->data }} - {{ $sessao->horario_inicio }}
+                                    {{ $sessao->data }} - {{ $sessao->horario_inicio }} <span
+                                        class="font-weight-light">{{ $sessao->sala->nome }}</span>
                                 </span>
                             </li>
                         @endif

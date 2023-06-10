@@ -32,4 +32,9 @@ class Bilhete extends Model
     {
         return $this->belongsTo(Sessao::class);
     }
+
+    public function Lugar()
+    {
+        return $this->belongsTo(Lugar::class);
+    }
 }

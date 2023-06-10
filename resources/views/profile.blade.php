@@ -4,12 +4,10 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <!-- Page title -->
                 <div class="my-5">
                     <h3>Perfil</h3>
                     <hr>
                 </div>
-                <!-- Form START -->
                 <form class="file-upload" id="formAccountSettings" method="POST"
                     action="{{ route('profile.update', $user->id) }}" enctype="multipart/form-data" class="needs-validation"
                     role="form" novalidate>
@@ -63,7 +61,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Upload profile -->
                         <div class="col-4">
                             <div class="bg-secondary-soft px-4 py-5 rounded">
                                 <div class="row">
@@ -82,13 +79,13 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Row END -->
                     <div class="gap-3 d-md-flex justify-content-md-end text-center">
+                        <a href="{{ url('/password/reset') }}" type="submit" class="btn btn-danger mx-2">Alterar
+                            password</a>
                         <button type="submit" class="btn btn-primary"
                             @if (optional(Auth()->user())->tipo == 'A' && $user->tipo == 'C') disabled @endif>Submeter alterações</button>
                     </div>
                 </form>
-                <!-- Form END -->
             </div>
         </div>
     </div>

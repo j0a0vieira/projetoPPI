@@ -51,7 +51,6 @@ Route::post('/users', [App\Http\Controllers\ProfileController::class, 'store'])-
 Route::get('/searchFilme', [App\Http\Controllers\FilmeController::class, 'searchFilme'])->name('searchFilme');
 
 
-
 Route::middleware(['auth', 'user-block'])->group(function () {
 
     //perfis de utilizador
@@ -70,6 +69,15 @@ Route::middleware(['auth', 'user-block'])->group(function () {
         return view('newFilme');
     })->name("newFilmeLayout");
 
+    //salas
+    Route::get('/sala/{id}', [App\Http\Controllers\SalaController::class, 'detalhesSala'])->name("sala-detalhes");
+    Route::post('/sala/{sala}', [App\Http\Controllers\SalaController::class, 'updateSala'])->name("sala-update");
+    Route::get('/delete-sala/{id}', [App\Http\Controllers\SalaController::class, 'deleteSala'])->name("delete-sala");
+    Route::post('/novaSala', [App\Http\Controllers\SalaController::class, 'novaSala'])->name("novaSala");
+    Route::get('/novaSala', function () {
+        return view('newSala');
+    })->name("newSalaLayout");
+
     //listagem de utilizadores
     Route::get('/funcionarios', [App\Http\Controllers\ProfileController::class, 'listAllFuncionarios'])->name('funcionarios');
     Route::get('/users', [App\Http\Controllers\ProfileController::class, 'listAll'])->name('users');
@@ -80,8 +88,10 @@ Route::middleware(['auth', 'user-block'])->group(function () {
     Route::get('/searchUsers', [App\Http\Controllers\ProfileController::class, 'searchUsers'])->name('searchUsers');
     Route::get('/searchFuncionarios', [App\Http\Controllers\ProfileController::class, 'searchFuncionarios'])->name('searchFuncionarios');
 
-    //pagamento, geramento de recibo e bilhete,
+    //pagamento, download e geramento de recibo e bilhete,
     Route::post('/pagamento', [App\Http\Controllers\CarrinhoController::class, 'processPayment'])->name('payment.process');
     Route::get('/finalizacaoCompra', [App\Http\Controllers\CompraController::class, 'guardarBilhetes'])->name('finalizacaoCompra');
     Route::get('/bilhetes', [App\Http\Controllers\ProfileController::class, 'bilhetes'])->name('bilhetes');
+    Route::get("/descarregarBilhete/{id}", [App\Http\Controllers\CompraController::class, 'descarregarBilhetes'])->name("descarregarBilhete");
+    Route::get("/descarregarRecibo/{id}", [App\Http\Controllers\CompraController::class, 'descarregarRecibo'])->name("descarregarRecibo");
 });

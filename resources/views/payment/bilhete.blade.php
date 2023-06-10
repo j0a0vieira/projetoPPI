@@ -1,58 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>Bilhete</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Cinema Ticket</title>
     <style>
         .ticket {
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            margin: 20px auto;
             max-width: 400px;
+            margin: 0 auto;
+            background-color: #f8f9fa;
             padding: 20px;
-            text-align: center;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
         }
 
-        .ticket .logo {
-            margin-bottom: 20px;
+        .ticket-info {
+            margin-bottom: 30px;
         }
 
-        .ticket .movie-name {
-            font-size: 24px;
+        .ticket-info h4 {
+            margin-bottom: 10px;
+        }
+
+        .ticket-id {
             font-weight: bold;
-            margin-bottom: 10px;
         }
 
-        .ticket .session-info {
-            color: #777;
-            font-size: 14px;
+        .ticket-status {
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .ticket-details {
+            display: flex;
+            align-items: center;
             margin-bottom: 20px;
         }
 
-        .ticket .seat-info {
-            font-size: 18px;
-            margin-bottom: 10px;
-        }
-
-        .ticket .client-info {
-            margin-bottom: 20px;
-        }
-
-        .ticket .client-info img {
+        .ticket-details img {
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            height: 80px;
-            width: 80px;
-        }
-
-        .ticket .client-info h4 {
-            margin-top: 10px;
-        }
-
-        .ticket .status-info {
-            font-size: 18px;
-            font-weight: bold;
+            margin-right: 10px;
         }
     </style>
 </head>
@@ -60,17 +51,23 @@
 <body>
     <div class="container">
         <div class="ticket">
-            <img src="path/to/logo.png" alt="Logo" class="logo">
-            <h2 class="movie-name">The Movie</h2>
-            <p class="session-info">Session Room: <span id="session-room">{{ $bilhete->sessao_id }}</span> | Date: <span
-                    id="session-date">22222222</span>
-                | Time: <span id="session-time">222222</span></p>
-            <p class="seat-info">Seat: <span id="seat">{{ $bilhete->lugar_id }}</span></p>
-            <div class="client-info">
-                <img class="card-img-top" src="{{ url('storage/fotos/' . Auth()->user()->foto_url) }}" alt="" />
-                <h4 id="client-name">{{ Auth()->user()->name }}</h4>
+            <div class="ticket-info text-center">
+                <h4>Bilhete #{{ $bilhete->id }}</h4>
+                <p class="ticket-status">Estado: {{ $bilhete->estado }}</p>
             </div>
-            <p class="status-info">Ticket Status: <span id="ticket-status">{{ $bilhete->estado }}</span></p>
+            <div class="ticket-details">
+                <img class="card-img-top" src="{{ url('/storage/fotos/' . $bilhete->cliente->user->foto_url) }}"
+                    alt="" />
+                <div>
+                    <h4>Cliente: {{ $bilhete->cliente->user->name }}</h4>
+                    <p>Sala: {{ $bilhete->sessao->sala->nome }}</p>
+                    <p>Lugar: {{ $bilhete->lugar->fila }}{{ $bilhete->lugar->posicao }}</p>
+                </div>
+            </div>
+            <div class="text-center">
+                <h4>Filme: {{ $bilhete->sessao->filme->titulo }}</h4>
+                <p>Data: {{ $bilhete->sessao->data }} às {{ $bilhete->sessao->horario_inicio }}</p>
+            </div>
         </div>
     </div>
 </body>

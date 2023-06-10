@@ -9,8 +9,17 @@ class Sala extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'nome'
+    ];
+
     public function Lugares()
     {
         return $this->hasMany(Lugar::class);
+    }
+
+    public function Sessao()
+    {
+        return $this->hasMany(Sessao::class);
     }
 }
